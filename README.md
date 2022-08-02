@@ -17,17 +17,15 @@ Use this template to get started on a Shiny app that deploys automatically to RS
 8.  Optionally, [generate a status badge](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge#using-the-workflow-file-name) to include in the README.
 9.  Remove or comment out these setup instructions from the README, keeping everything below.
 
-# App Name
+# App Name (edit this)
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-```{=html}
-<!--
-In this section include a short description of the incubator project or purpose of the app and the main contacts for the project.  It should also link to the published shiny app eventually.
--->
-```
+Edit this section to include a short description of the incubator project or purpose of the app and the main contacts for the project.  It should also link to the published shiny app eventually.
+
+
 ## Collaboration Guidelines
 
 You can get started contributing by creating a new RStudio Project from this repository ([instructions](https://happygitwithr.com/new-github-first.html)).
