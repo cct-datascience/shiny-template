@@ -1,12 +1,13 @@
-# Workflow derived from https://solutions.rstudio.com/data-science-admin/deploy/github-actions/
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
-# This action was put together from two main sources:
+# This action was derived from two main sources:
 # 1) https://solutions.rstudio.com/data-science-admin/deploy/github-actions/ 
 # 2) https://rstudio.github.io/renv/articles/ci.html
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
     branches:
       - main #you may need to change this if your main branch has a different name
+    paths-ignore:
+      - 'README.md' #don't re-deploy the app if only the README changes
 
 name: deploy-to-connect
 
