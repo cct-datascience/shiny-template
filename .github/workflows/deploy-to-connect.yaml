@@ -46,13 +46,16 @@ jobs:
         run: |
           if (!requireNamespace("packrat", quietly = TRUE)) install.packages("packrat")
           if (!requireNamespace("rsconnect", quietly = TRUE)) install.packages("rsconnect")
+          if (!requireNamespace("Cairo", quietly = TRUE)) install.packages("Cairo")
+          options(shiny.usecairo = TRUE) #to fix bad aliasing in plots
           
       - name: Generate manifest.json
         run: |
           rsconnect::writeManifest(appDir = "${{ env.APP_DIR }}")
         shell: Rscript {0}
 
-# For more detailed documentation on this step see https://github.com/rstudio/actions/tree/main/connect-publish
+# For more detailed documentation on this step see
+# https://github.com/rstudio/actions/tree/main/connect-publish
 
       - name: Deploy to RStudio Connect
         uses: rstudio/actions/connect-publish@main
