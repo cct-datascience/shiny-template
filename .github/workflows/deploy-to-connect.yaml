@@ -1,5 +1,5 @@
 # This action was derived from two main sources:
-# 1) https://solutions.rstudio.com/data-science-admin/deploy/github-actions/ 
+# 1) https://solutions.posit.co/operations/deploy-methods/ci-cd/github-actions/
 # 2) https://rstudio.github.io/renv/articles/ci.html
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
@@ -15,31 +15,14 @@ jobs:
   deploy-to-connect:
     runs-on: macOS-latest
     env:
-      APP_NAME: "my-shiny-app" #edit this
+      APP_NAME: "my-shiny-app" #this is the URL "slug"
       APP_DIR: "app"
       ACCESS_TYPE: "logged_in" #options are "all", "logged_in", or "acl"
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RSCONNECT_URL: ${{ secrets.RSCONNECT_URL }}
-      RSCONNECT_APIKEY: ${{ secrets.RSCONNECT_APIKEY }}
-      RENV_PATHS_ROOT: ~/.local/share/renv
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }} #Not sure if this is necessary
     steps:
       - uses: actions/checkout@v3
-
       - uses: r-lib/actions/setup-r@v2
-
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.RENV_PATHS_ROOT }}
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-      
-      - name: Restore packages
-        shell: Rscript {0}
-        run: |
-          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::restore()
+      - uses: r-lib/actions/setup-renv@v2
       
       - name: Install packages required for rsconnect
         shell: Rscript {0}
@@ -47,7 +30,6 @@ jobs:
           if (!requireNamespace("packrat", quietly = TRUE)) install.packages("packrat")
           if (!requireNamespace("rsconnect", quietly = TRUE)) install.packages("rsconnect")
           if (!requireNamespace("Cairo", quietly = TRUE)) install.packages("Cairo")
-          options(shiny.usecairo = TRUE) #to fix bad aliasing in plots
           
       - name: Generate manifest.json
         run: |
@@ -60,7 +42,7 @@ jobs:
       - name: Deploy to RStudio Connect
         uses: rstudio/actions/connect-publish@main
         with:
-          url: https://${{ env.RSCONNECT_APIKEY }}@${{ env.RSCONNECT_URL }}
+          url: https://${{ secrets.CONNECT_APIKEY }}@viz.datascience.arizona.edu
           access-type: ${{ env.ACCESS_TYPE }}
           show-logs: true
           force: true

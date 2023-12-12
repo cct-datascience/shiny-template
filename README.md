@@ -10,8 +10,7 @@ Use this template to get started on a Shiny app that deploys automatically to RS
 4.  Create an API key for RStudio Connect by going to viz.datascience.arizona.edu, clicking on your name in the upper right corner, and choosing "API keys". Copy the key that is generated---you will need it in the next step!
 5.  Add GitHub Secrets
     1.  Go to the settings for the GitHub repo and choose the "Secrets" section
-
-    2.  Choose "Actions" from the dropdown and add two repository secrets: One called RSCONNECT_URL that contains only `viz.datascience.arizona.edu` and another called RSCONNECT_APIKEY where you'll paste the key you generated in the previous step
+    2.  Choose "Actions" from the dropdown and add a repository secret called CONNECT_APIKEY where you'll paste the key you generated in the previous step.
 6.  Commit your changes to the `renv` lockfile (if any) and deploy-to-connect.yaml and push those changes
 7.  Check that the action ran in the "Actions" tab on the GitHub repo
 8.  Optionally, [generate a status badge](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge#using-the-workflow-file-name) to include in the README.
