@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to RStudio Connect
         uses: rstudio/actions/connect-publish@main
         with:
-          url: https://${{ secrets.CONNECT_APIKEY }}@${{ secrets.CONNECT_URL }}
+          url: https://${{ secrets.CONNECT_APIKEY }}@viz.datascience.arizona.edu
           access-type: ${{ env.ACCESS_TYPE }}
           show-logs: true
           force: true
